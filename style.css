@@ -1,0 +1,30 @@
+form {
+    border: 1px solid grey;
+    text-align: center;
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    width: 500px;
+    height: 400px;
+    background-color: lightgrey;
+}
+
+
+/* form {
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    left: 30%;
+    align: center;
+} */
+
+/* .all {
+    text-align: center;
+    position: relative;
+} */
+
+pre {
+    color: red;
+    text-align: left;
+    padding-left: 30%;
+}

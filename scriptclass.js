@@ -23,9 +23,11 @@ class SignupValidation {
     checkPassword() {
         const errorLen = ' from 8 to 16 characters';
         const errorKeyword = ' not contian username';
-        const errorChar = ' at least one lowercase letter, one uppercase letter, one number, one symbol and not contian space';
+        const errorChar = ' at least one lowercase letter,\n one uppercase letter,\n one number,\n one symbol and not contian space';
+        const errorLang = ' only Latin/Armenian/Russian letters';
         //const errorSpace = 'not contian space';
         const regexpPass = /^(?!.*\s)(?=.*[0-9])(?=.*[^\w\s])(?=.*[a-z])(?=.*[A-Z]).*$/g;
+        const regexpLang = /[^a-z0-9ա-ֆа-я-!"#$%&'()^*+,./:;<=>?@[\\\]_`{|}~]/gi;
         //const regexpSpace = /^\S*$/g;
         const len = this.password.length;
         let errors = '';
@@ -34,8 +36,12 @@ class SignupValidation {
             errors += '\n' + errorLen; 
         }
 
+        if (regexpLang.test(this.password)) {
+            errors += '\n' + errorLang;
+        }
+
         if (this.password.includes(this.username)) {
-            errors += errorKeyword;
+            errors += '\n' + errorKeyword;
         }
 
         if (!regexpPass.test(this.password)) {
