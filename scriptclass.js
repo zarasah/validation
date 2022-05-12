@@ -26,7 +26,7 @@ class SignupValidation {
         const errorChar = ' at least one lowercase letter,\n one uppercase letter,\n one number,\n one symbol and not contian space';
         const errorLang = ' only Latin/Armenian/Russian letters';
         //const errorSpace = 'not contian space';
-        const regexpPass = /^(?!.*\s)(?=.*[0-9])(?=.*[^\w\s])(?=.*[a-z])(?=.*[A-Z]).*$/g;
+        const regexpPass = /^(?!.*\s)(?=.*[0-9])(?=.*[^\w\s])(?=.*[a-zа-яա-ֆ])(?=.*[A-ZА-ЯԱ—Ֆ]).*$/g;
         const regexpLang = /[^a-z0-9ա-ֆа-я-!"#$%&'()^*+,./:;<=>?@[\\\]_`{|}~]/gi;
         //const regexpSpace = /^\S*$/g;
         const len = this.password.length;
