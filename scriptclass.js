@@ -23,12 +23,15 @@ class SignupValidation {
     checkPassword() {
         const errorLen = ' from 8 to 16 characters';
         const errorKeyword = ' not contian username';
-        const errorChar = ' at least one lowercase letter,\n one uppercase letter,\n one number,\n one symbol and not contian space';
+        const errorSPace = ' not contian space';
+        const errorUpperCase = ' at least one uppercase letter';
+        const errorLowerCase = ' at least one lowercase letter';
+        const errorNumber = ' at least one number';
+        const errorSymbol = ' at least one symbol';
         const errorLang = ' only Latin/Armenian/Russian letters';
-        //const errorSpace = 'not contian space';
-        const regexpPass = /^(?!.*\s)(?=.*[0-9])(?=.*[^\w\s])(?=.*[a-zа-яա-ֆ])(?=.*[A-ZА-ЯԱ—Ֆ]).*$/g;
-        const regexpLang = /[^a-z0-9ա-ֆа-я-!"#$%&'()^*+,./:;<=>?@[\\\]_`{|}~]/gi;
-        //const regexpSpace = /^\S*$/g;
+        //const regexpPass = /^(?!.*\s)(?=.*[0-9])(?=.*[^\w\s])(?=.*[a-zа-яա-ֆ])(?=.*[A-ZА-ЯԱ—Ֆ]).*$/g;
+        const regexpLang = /[^a-z0-9ա-ֆа-я\s-!"#$%&'()^*+,./:;<=>?@[\\\]_`{|}~]/gi;
+        const regexpSpace = /^\S*$/g;
         const len = this.password.length;
         let errors = '';
 
@@ -40,12 +43,28 @@ class SignupValidation {
             errors += '\n' + errorLang;
         }
 
+        if (!regexpSpace.test(this.password)) {
+            errors += '\n' + errorSPace;
+        }
+
         if (this.password.includes(this.username)) {
             errors += '\n' + errorKeyword;
         }
 
-        if (!regexpPass.test(this.password)) {
-            errors += '\n' + errorChar;
+        if (!(/[A-ZА-ЯԱ—Ֆ]/g.test(this.password))) {
+            errors += '\n' + errorUpperCase;
+        }
+
+        if (!(/[a-zа-яա-ֆ]/g.test(this.password))) {
+            errors += '\n' + errorLowerCase;
+        }
+
+        if (!(/\d/g.test(this.password))) {
+            errors += '\n' + errorNumber;
+        }
+
+        if (!(/[-!"#$%&'()^*+,./:;<=>?@[\\\]_`{|}~]/g.test(this.password))) {
+            errors += '\n' + errorSymbol;
         }
 
         return errors;
@@ -62,15 +81,14 @@ class SignupValidation {
         
         if (resultName !== '') {
             error = 'The Username must contain:' + resultName;
-            let errorTextUser = document.querySelector('#error');
+            let errorTextUser = document.querySelector('#errorU');
             errorTextUser.innerHTML = error;
         }
 
         if (resultPass !== '') {
             error = 'The Password must contain:' + resultPass;
-            let errorTextPass = document.createElement('pre');
+            let errorTextPass = document.querySelector('#errorP');
             errorTextPass.innerHTML = error;
-            document.querySelector('#password').after(errorTextPass);
         }
     }
 }
@@ -85,7 +103,7 @@ button.onclick = function(event) {
     const signup = new SignupValidation(username, password);
 
     if(!username || !password) {
-        document.querySelector('#error').innerHTML = 'Please fill in all fields';
+        document.querySelector('#errorU').innerHTML = 'Please fill in all fields';
         throw new Error('fields are blank')
     }
 
